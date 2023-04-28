@@ -1,5 +1,6 @@
 package br.com.cod3r.cm.modelo;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -174,9 +175,69 @@ public class CampoTeste {
 		assertTrue(campo22.isAberto() && campo11.isFechado() && campo12.isFechado());
 	}
 	
-	// outros testes
+	// teste objetivo alcançado
+	
 	@Test
 	void testeObjetivoAlcancado() {
+		campo.minar();
+		campo.alternarMarcacao();
 		
+		Campo campo22 = new Campo(2, 2);
+		campo22.abrir();
+		
+		assertTrue(campo.objetivoAlcancado() && campo22.objetivoAlcancado());
+	}
+	
+	
+	// teste objetivo não alcançado
+	@Test
+	void testeObjetivoNaoAlcancadoMinaNaoMarcada() {
+		campo.minar();
+		
+		Campo campo22 = new Campo(2, 2);
+		campo22.abrir();
+		
+		assertFalse(campo.objetivoAlcancado() && campo22.objetivoAlcancado());
+	}
+	
+	@Test
+	void testeObjetivoNaoAlcancadoCampoNaoAberto() {
+		campo.minar();
+		campo.alternarMarcacao();
+		
+		Campo campo22 = new Campo(2, 2);
+		
+		assertFalse(campo.objetivoAlcancado() && campo22.objetivoAlcancado());
+	}
+	
+	@Test
+	void testeObjetivoNaoAlcancadoMinaNaoMarcadaECampoNaoAberto() {
+		campo.minar();
+		
+		Campo campo22 = new Campo(2, 2);
+		
+		assertFalse(campo.objetivoAlcancado() && campo22.objetivoAlcancado());
+	}
+	
+	// teste contagem de minas na vizinhança
+	@Test
+	void testeContagemDeMinasNaVizinhanca() {
+		Campo campo22 = new Campo(2, 2);
+		campo22.minar();
+		Campo campo23 = new Campo(2, 3);
+		campo23.minar();
+		
+		campo.adicionarVizinho(campo22);
+		campo.adicionarVizinho(campo23);
+		
+		assertEquals(2, campo.minasNaVizinhanca());
+	}
+	
+	// teste reiniciar
+	@Test
+	void testereiniciar() {
+		campo.reiniciar();
+		
+		assertFalse(campo.isAberto() && campo.isMarcado() && campo.isMinado());
 	}
 }

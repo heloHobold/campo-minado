@@ -99,6 +99,14 @@ public class Campo {
 		return coluna;
 	}
 	
+	public List<Campo> getVizinhos() {
+		return vizinhos;
+	}
+
+	public void setVizinhos(List<Campo> vizinhos) {
+		this.vizinhos = vizinhos;
+	}
+
 	boolean objetivoAlcancado() {
 		boolean desvendado = !minado && aberto;
 		boolean protegido = minado && marcado;

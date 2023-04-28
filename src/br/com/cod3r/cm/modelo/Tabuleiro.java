@@ -23,7 +23,7 @@ public class Tabuleiro {
 		associarVizinhos();
 		sortearMinas();
 	}
-	
+
 	private void gerarCampos() {
 		for (int linha = 0; linha < linhas; linha++) {
 			for (int coluna = 0; coluna < colunas; coluna++) {
@@ -76,7 +76,11 @@ public class Tabuleiro {
 		campos.parallelStream()
 			.filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
 			.findFirst()
-			.ifPresent(c -> c.alternarMarcacao());;
+			.ifPresent(c -> c.alternarMarcacao());
+	}
+	
+	public List<Campo> getCampos() {
+		return campos;
 	}
 	
 	public String toString() {
